@@ -1,4 +1,5 @@
 from tkinter import *
+
 import time
 import threading
 import random
@@ -21,8 +22,10 @@ def changePage():
     global page
     if page == 1.0:
         office.pack_forget()
+        
         menu.pack()
     elif page == 2.0:
+        
         menu.pack_forget()
         cams1a.pack_forget()
         cams1b.pack_forget()
@@ -35,6 +38,7 @@ def changePage():
         cams5.pack_forget()
         cams7.pack_forget()
         office.pack()
+        
     elif page == 1.1:
         cams1a.pack()
         cams1b.pack_forget()
@@ -270,6 +274,21 @@ cams4a = Frame(root, bg='grey')
 cams4b = Frame(root, bg='grey')
 cams5 = Frame(root, bg='grey')
 cams7 = Frame(root, bg='grey')
+
+
+
+
+
+
+clock12 = PhotoImage(file='fnafpython2.0-main/assets/12AM.png')
+clock1 = PhotoImage(file='fnafpython2.0-main/assets/1AM.png')
+clock2 = PhotoImage(file='fnafpython2.0-main/assets/2AM.png')
+clock3 = PhotoImage(file='fnafpython2.0-main/assets/3AM.png')
+clock4 = PhotoImage(file='fnafpython2.0-main/assets/4AM.png')
+clock5 = PhotoImage(file='fnafpython2.0-main/assets/5AM.png')
+clock6 = PhotoImage(file='fnafpython2.0-main/assets/6AM.png')
+
+
 
 
 
@@ -892,6 +911,7 @@ def nightselect():
         marklvl = 6
     thread.start()
     
+    
 
 freddyroom = ["stage","dining","bathroom","east hall","east hall corner","office",] #These are lists of the possible locations, and a number to keep track of where they are from the indexes.
 fredloc = 0
@@ -906,7 +926,8 @@ goldloc = 0
 dead = 0
 
 def gamestart():
-    global dead,officeimg, chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl
+    global dead,officeimg, page, chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl
+    clock = 0.0
     while dead == 0:
 
         # LOCATION CODE ---------------------------------------------------------
@@ -1141,6 +1162,21 @@ def gamestart():
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+        elif bonloc == 6 and markloc == 2:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=bonnie_doorimg)
+            office_canvas.create_image(640,288, image=mark_doorimg)
+        elif chicaloc == 6 and bonloc == 6:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=chica_doorimg)
+            office_canvas.create_image(640,288, image=bonnie_doorimg)
+        elif chicaloc == 6 and foxyloc == 2:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=chica_doorimg)
+            office_canvas.create_image(640,288, image=foxy_doorimg)
         else:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1170,11 +1206,48 @@ def gamestart():
             if movement > random.randint(2,8):
                 markloc = markloc + 1
     
-    
+        if clock < 60.0:
+            
+            office_canvas.create_image(640,288, image=clock12)
+
+        elif clock >= 60 and clock < 120:
+            
+                
+            office_canvas.create_image(640,288, image=clock1)
+        elif clock >= 120 and clock < 180:
+             
+                
+            office_canvas.create_image(640,288, image=clock2)
+        elif clock >= 180 and clock < 240:
+            
+                
+            office_canvas.create_image(640,288, image=clock3)
+        elif clock >= 240 and clock < 300:
+            
+                
+            office_canvas.create_image(640,288, image=clock4)
+        elif clock >= 300 and clock < 360:
+            
+                
+            office_canvas.create_image(640,288, image=clock5)
+        elif clock >= 360:
+            
+            office_canvas.create_image(640,288, image=clock6)
+            time.sleep(1)
+            dead = True
         time.sleep(5)
+        clock = clock + 5.0
+    page = 1.0
+    changePage()
+
+
+
+
+
 
 thread = threading.Thread(target=gamestart)
 
 
 changePage()
+
 root.mainloop()
