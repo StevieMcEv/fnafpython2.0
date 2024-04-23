@@ -25,7 +25,6 @@ def changePage():
         
         menu.pack()
     elif page == 2.0:
-        
         menu.pack_forget()
         cams1a.pack_forget()
         cams1b.pack_forget()
@@ -288,8 +287,8 @@ clock4 = PhotoImage(file='fnafpython2.0-main/assets/4AM.png')
 clock5 = PhotoImage(file='fnafpython2.0-main/assets/5AM.png')
 clock6 = PhotoImage(file='fnafpython2.0-main/assets/6AM.png')
 
-
-
+gameover = PhotoImage(file='fnafpython2.0-main/assets/gameover.png')
+complete = PhotoImage(file='fnafpython2.0-main/assets/complete.png')
 
 
 #### Menu ####
@@ -923,12 +922,13 @@ foxyroom = ["cove", "office"]
 foxyloc = 0
 markloc = 0
 goldloc = 0
-dead = 0
+dead = False
+finish = False
 
 def gamestart():
-    global dead,officeimg, page, chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl
+    global dead,root,finish,officeimg, page, chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl
     clock = 0.0
-    while dead == 0:
+    while dead == False and finish == False:
 
         # LOCATION CODE ---------------------------------------------------------
 
@@ -1108,17 +1108,12 @@ def gamestart():
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
-            
         elif bonloc == 6 and foxyloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
-        elif bonloc == 6:
-            office_canvas.delete('all')
-            office_canvas.create_image(640,288, image=officeimg)
-            office_canvas.create_image(640,288, image=bonnie_doorimg)
-        elif foxyloc == 2 and chicaloc == 6 and markloc == 2 and goldloc == 1:
+        
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
@@ -1130,10 +1125,7 @@ def gamestart():
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
-        elif foxyloc == 2:
-            office_canvas.delete('all')
-            office_canvas.create_image(640,288, image=officeimg)
-            office_canvas.create_image(640,288, image=foxy_doorimg)
+        
         elif chicaloc == 6 and markloc == 2 and goldloc:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1145,23 +1137,13 @@ def gamestart():
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
-        elif chicaloc == 6:
-            office_canvas.delete('all')
-            office_canvas.create_image(640,288, image=officeimg)
-            office_canvas.create_image(640,288, image=chica_doorimg)
+        
         elif markloc == 2 and goldloc:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
-        elif markloc == 2:
-            office_canvas.delete('all')
-            office_canvas.create_image(640,288, image=officeimg)
-            office_canvas.create_image(640,288, image=mark_doorimg)
-        elif goldloc == 1: 
-            office_canvas.delete('all')
-            office_canvas.create_image(640,288, image=officeimg)
-            office_canvas.create_image(640,288, image=goldenfred_officeimg)
+        
         elif bonloc == 6 and markloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1177,6 +1159,26 @@ def gamestart():
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+        elif chicaloc == 6:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=chica_doorimg)
+        elif markloc == 2:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=mark_doorimg)
+        elif goldloc == 1: 
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=goldenfred_officeimg)
+        elif foxyloc == 2:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=foxy_doorimg)
+        elif bonloc == 6:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            office_canvas.create_image(640,288, image=bonnie_doorimg)
         else:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1234,11 +1236,20 @@ def gamestart():
             
             office_canvas.create_image(640,288, image=clock6)
             time.sleep(1)
-            dead = True
+            finish = True
         time.sleep(5)
         clock = clock + 5.0
-    page = 1.0
+    page = 2.0
     changePage()
+
+    if finish == True:
+        office_canvas.create_image(640,288, image=complete)
+        time.sleep(5)
+        root.destroy()
+    else:
+        office_canvas.create_image(640,288, image=gameover)
+        time.sleep(5)
+        root.destroy()
 
 
 
