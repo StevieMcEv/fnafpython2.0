@@ -3,6 +3,7 @@ from tkinter import *
 import time
 import threading
 import random
+import pygame
 
 page = 1.0
 doorleft_toggle = False
@@ -17,6 +18,9 @@ markdoor = False
 root = Tk()
 root.geometry("1280x577")
 root.title("FNAF PYTHON 2.0")
+
+pygame.init()
+pygame.mixer.music.set_volume(0.3)
 
 def changePage():
     global page
@@ -165,6 +169,9 @@ def select_1():
     night = 1
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def select_2():
     global page, night
@@ -172,6 +179,9 @@ def select_2():
     night = 2
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def select_3():
     global page, night
@@ -179,6 +189,9 @@ def select_3():
     night = 3
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def select_4():
     global page, night
@@ -186,6 +199,9 @@ def select_4():
     night = 4
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def select_5():
     global page, night
@@ -193,6 +209,9 @@ def select_5():
     night = 5
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def select_6():
     global page, night
@@ -200,6 +219,9 @@ def select_6():
     night = 6
     nightselect()
     changePage()
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("audio/ambience.mp3")
+    pygame.mixer.music.play()
 
 def backoffice():
     global page
@@ -261,6 +283,22 @@ def cam7():
     page = 10.1
     changePage()
 
+def doortoggleL():
+    global doorleft_toggle
+    if doorleft_toggle == False:
+        doorleft_toggle = True
+    elif doorleft_toggle == True:
+        doorleft_toggle = False
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound("audio/doorslam.mp3")) #Playing on a different channel than music lets you play multiple audio files at once
+
+def doortoggleR():
+    global doorright_toggle
+    if doorright_toggle == False:
+        doorright_toggle = True
+    elif doorright_toggle == True:
+        doorright_toggle = False
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound("audio/doorslam.mp3"))
+
 menu = Frame(root, bg='grey')
 office = Frame(root, bg='grey')
 cams1a = Frame(root, bg='grey')
@@ -279,20 +317,22 @@ cams7 = Frame(root, bg='grey')
 
 
 
-clock12 = PhotoImage(file='fnafpython2.0-main/assets/12AM.png')
-clock1 = PhotoImage(file='fnafpython2.0-main/assets/1AM.png')
-clock2 = PhotoImage(file='fnafpython2.0-main/assets/2AM.png')
-clock3 = PhotoImage(file='fnafpython2.0-main/assets/3AM.png')
-clock4 = PhotoImage(file='fnafpython2.0-main/assets/4AM.png')
-clock5 = PhotoImage(file='fnafpython2.0-main/assets/5AM.png')
-clock6 = PhotoImage(file='fnafpython2.0-main/assets/6AM.png')
+clock12 = PhotoImage(file='assets/12AM.png')
+clock1 = PhotoImage(file='assets/1AM.png')
+clock2 = PhotoImage(file='assets/2AM.png')
+clock3 = PhotoImage(file='assets/3AM.png')
+clock4 = PhotoImage(file='assets/4AM.png')
+clock5 = PhotoImage(file='assets/5AM.png')
+clock6 = PhotoImage(file='assets/6AM.png')
 
-gameover = PhotoImage(file='fnafpython2.0-main/assets/gameover.png')
-complete = PhotoImage(file='fnafpython2.0-main/assets/complete.png')
+gameover = PhotoImage(file='assets/gameover.png')
+complete = PhotoImage(file='assets/complete.png')
 
 
 #### Menu ####
-menuback = PhotoImage(file='fnafpython2.0-main/assets/menu.png')
+pygame.mixer.music.load("audio/theme.mp3")
+pygame.mixer.music.play()
+menuback = PhotoImage(file='assets/menu.png')
 menuimg = Label(menu,image=menuback)
 menuimg.pack() 
 txt_night1 = Button(menu, text="Night 1", font=('Terminal',20),fg= 'white', bg= 'black', command=lambda: select_1())
@@ -312,58 +352,58 @@ txt_night6.place(x= 236, y=450)
 office_canvas = Canvas(office, bg='grey', width=1280, height=577)
 office_canvas.pack()
 
-officeimg = PhotoImage(file='fnafpython2.0-main/assets/office.png')
+officeimg = PhotoImage(file='assets/office.png')
 office_canvas.create_image(640,288, image=officeimg)
 
 
-lightleft_img = PhotoImage(file='fnafpython2.0-main/assets/lightleft.png')
-if lightleft_toggle == True:
-    office_canvas.create_image(640,288, image=lightleft_img)
+lightleft_img = PhotoImage(file='assets/lightleft.png')
 
 
 
-lightright_img = PhotoImage(file='fnafpython2.0-main/assets/lightright.png')
 
-if lightright_toggle == True:
-    office_canvas.create_image(640,288, image=lightright_img)
+lightright_img = PhotoImage(file='assets/lightright.png')
 
-btnleftdr_img = PhotoImage(file='fnafpython2.0-main/assets/btnleftdr.png')
-office_canvas.create_image(640,288, image=btnleftdr_img)
 
-btnleftlit_img = PhotoImage(file='fnafpython2.0-main/assets/btnleftlit.png')
+
+btnleftdr_img = PhotoImage(file='assets/btnleftdr_sep.png')
+btnleftdr = Button(office, bg="black", image= btnleftdr_img, command=lambda: doortoggleL())
+btnleftdr.place(x= 25, y= 240)
+
+btnleftlit_img = PhotoImage(file='assets/btnleftlit.png')
 office_canvas.create_image(640,288, image=btnleftlit_img)
 
-btnrightdr_img = PhotoImage(file='fnafpython2.0-main/assets/btnrightdr.png')
-office_canvas.create_image(630,288, image=btnrightdr_img)
+btnrightdr_img = PhotoImage(file='assets/btnrightdr_sep.png')
+btnrightdr = Button(office, bg="black", image=btnrightdr_img, command= lambda: doortoggleR())
+btnrightdr.place(x=1220, y=240)
 
-btnrightlit_img = PhotoImage(file='fnafpython2.0-main/assets/btnrightlit.png')
+btnrightlit_img = PhotoImage(file='assets/btnrightlit.png')
 office_canvas.create_image(630,288, image=btnrightlit_img)
 
-chica_doorimg = PhotoImage(file='fnafpython2.0-main/assets/chica_door.png')
+chica_doorimg = PhotoImage(file='assets/chica_door.png')
 
 
-foxy_doorimg = PhotoImage(file='fnafpython2.0-main/assets/foxy_door.png')
+foxy_doorimg = PhotoImage(file='assets/foxy_door.png')
 
 
-goldenfred_officeimg = PhotoImage(file='fnafpython2.0-main/assets/goldenfred_office.png')
+goldenfred_officeimg = PhotoImage(file='assets/goldenfred_office.png')
 
 
-mark_doorimg = PhotoImage(file='fnafpython2.0-main/assets/mark_door.png')
+mark_doorimg = PhotoImage(file='assets/mark_door.png')
 
 
-bonnie_doorimg = PhotoImage(file='fnafpython2.0-main/assets/bonnie_door.png')
+bonnie_doorimg = PhotoImage(file='assets/bonnie_door.png')
 
 
-cambtn_img = PhotoImage(file='fnafpython2.0-main/assets/cambtn2.png')
+cambtn_img = PhotoImage(file='assets/cambtn2.png')
 officecambtn = Button(office, bg = 'black', image=cambtn_img, command=lambda: camoffice())
 officecambtn.place(x= 320, y= 510)
 
 
-door_leftimg = PhotoImage(file='fnafpython2.0-main/assets/door_left.png')
+door_leftimg = PhotoImage(file='assets/door_left.png')
 if doorleft_toggle == True:
     office_canvas.create_image(640,288, image=door_leftimg)
 
-door_rightimg = PhotoImage(file='fnafpython2.0-main/assets/door_right.png')
+door_rightimg = PhotoImage(file='assets/door_right.png')
 if doorright_toggle == True:
     office_canvas.create_image(640,288, image=door_rightimg)
 #### Cameras ####
@@ -375,26 +415,26 @@ canvas = Canvas(cams1a, bg="black", width=1280, height=577)
 canvas.pack()
 
 
-stage = PhotoImage(file="fnafpython2.0-main/assets/stage.png")
+stage = PhotoImage(file="assets/stage.png")
 canvas.create_image(640,288,image=stage)
 
-fredstage = PhotoImage(file="fnafpython2.0-main/assets/fredstage.png")
+fredstage = PhotoImage(file="assets/fredstage.png")
 
 
-bonstage = PhotoImage(file="fnafpython2.0-main/assets/bonstage.png")
+bonstage = PhotoImage(file="assets/bonstage.png")
 
 
 
-c1a2 = PhotoImage(file="fnafpython2.0-main/assets/1a2.png")
-c1b2 = PhotoImage(file="fnafpython2.0-main/assets/1b2.png")
-c1c2 = PhotoImage(file="fnafpython2.0-main/assets/1c2.png")
-c2a2 = PhotoImage(file="fnafpython2.0-main/assets/2a2.png")
-c2b2 = PhotoImage(file="fnafpython2.0-main/assets/2b2.png")
-c32 = PhotoImage(file="fnafpython2.0-main/assets/32.png")
-c4a2 = PhotoImage(file="fnafpython2.0-main/assets/4a2.png")
-c4b2 = PhotoImage(file='fnafpython2.0-main/assets/4b2.png')
-c52 = PhotoImage(file='fnafpython2.0-main/assets/52.png')
-c72 = PhotoImage(file='fnafpython2.0-main/assets/72.png')
+c1a2 = PhotoImage(file="assets/1a2.png")
+c1b2 = PhotoImage(file="assets/1b2.png")
+c1c2 = PhotoImage(file="assets/1c2.png")
+c2a2 = PhotoImage(file="assets/2a2.png")
+c2b2 = PhotoImage(file="assets/2b2.png")
+c32 = PhotoImage(file="assets/32.png")
+c4a2 = PhotoImage(file="assets/4a2.png")
+c4b2 = PhotoImage(file='assets/4b2.png')
+c52 = PhotoImage(file='assets/52.png')
+c72 = PhotoImage(file='assets/72.png')
 
 c1abtn1 = Button(canvas, bg = 'black', image=c1a2, command=lambda: cam1a())
 c1abtn1.place(x= 990, y= 275)
@@ -438,16 +478,16 @@ canvas2 = Canvas(cams1b, bg="black", width=1280, height=577)
 canvas2.pack()
 
 
-dinning = PhotoImage(file="fnafpython2.0-main/assets/dinning.png")
+dinning = PhotoImage(file="assets/dinning.png")
 canvas2.create_image(640,288,image=dinning)
 
-freddin = PhotoImage(file="fnafpython2.0-main/assets/freddin.png")
+freddin = PhotoImage(file="assets/freddin.png")
 
 
-bondin = PhotoImage(file="fnafpython2.0-main/assets/bondin.png")
+bondin = PhotoImage(file="assets/bondin.png")
 
 
-chicadin = PhotoImage(file="fnafpython2.0-main/assets/chicadin.png")
+chicadin = PhotoImage(file="assets/chicadin.png")
 
 
 c1abtn2 = Button(canvas2, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -491,13 +531,13 @@ canvas3 = Canvas(cams1c, bg="black", width=1280, height=577)
 canvas3.pack()
 
 
-cove = PhotoImage(file="fnafpython2.0-main/assets/cove.png")
+cove = PhotoImage(file="assets/cove.png")
 canvas3.create_image(640,288,image=cove)
 
-foxyattack = PhotoImage(file="fnafpython2.0-main/assets/foxyattack.png")
+foxyattack = PhotoImage(file="assets/foxyattack.png")
 
 
-foxyhome = PhotoImage(file="fnafpython2.0-main/assets/foxyhome.png")
+foxyhome = PhotoImage(file="assets/foxyhome.png")
 
 c1abtn3 = Button(canvas3, bg = 'black', image=c1a2, command=lambda: cam1a())
 c1abtn3.place(x= 990, y= 275)
@@ -539,10 +579,10 @@ c3acambtn.place(x= 300, y= 510)
 canvas4 = Canvas(cams2a, bg="black", width=1280, height=577)
 canvas4.pack()
 
-whall_img = PhotoImage(file="fnafpython2.0-main/assets/whall.png")
+whall_img = PhotoImage(file="assets/whall.png")
 canvas4.create_image(640,288,image=whall_img)
 
-bonhall_img = PhotoImage(file="fnafpython2.0-main/assets/bonhall.png")
+bonhall_img = PhotoImage(file="assets/bonhall.png")
 
 
 c1abtn4 = Button(canvas4, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -585,13 +625,13 @@ c4acambtn.place(x= 300, y= 510)
 canvas5= Canvas(cams2b, bg="black", width=1280, height=577)
 canvas5.pack()
 
-whallcorner_img = PhotoImage(file="fnafpython2.0-main/assets/whallcorner.png")
+whallcorner_img = PhotoImage(file="assets/whallcorner.png")
 canvas5.create_image(640,288,image=whallcorner_img)
 
-boncorner_img = PhotoImage(file="fnafpython2.0-main/assets/boncorner.png")
+boncorner_img = PhotoImage(file="assets/boncorner.png")
 
 
-markcorner_img = PhotoImage(file="fnafpython2.0-main/assets/markcorner.png")
+markcorner_img = PhotoImage(file="assets/markcorner.png")
 
 
 c1abtn5 = Button(canvas5, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -635,10 +675,10 @@ c5acambtn.place(x= 300, y= 510)
 canvas6 = Canvas(cams3, bg="black", width=1280, height=577)
 canvas6.pack()
 
-closet_img = PhotoImage(file="fnafpython2.0-main/assets/closet.png")
+closet_img = PhotoImage(file="assets/closet.png")
 canvas6.create_image(640,288, image=closet_img)
 
-boncloset_img = PhotoImage(file="fnafpython2.0-main/assets/boncloset.png")
+boncloset_img = PhotoImage(file="assets/boncloset.png")
 
 
 c1abtn6 = Button(canvas6, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -681,10 +721,10 @@ canvas7 = Canvas(cams4a, bg="black", width=1280, height=577)
 canvas7.pack()
 
 
-ehall_img= PhotoImage(file="fnafpython2.0-main/assets/ehall.png")
+ehall_img= PhotoImage(file="assets/ehall.png")
 canvas7.create_image(640,288,image=ehall_img)
 
-chicaehall_img= PhotoImage(file="fnafpython2.0-main/assets/chicaehall.png")
+chicaehall_img= PhotoImage(file="assets/chicaehall.png")
 
 
 c1abtn7 = Button(canvas7, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -726,13 +766,13 @@ c7acambtn.place(x= 300, y= 510)
 canvas8 = Canvas(cams4b, bg="black", width=1280, height=577)
 canvas8.pack()
 
-ehallcorner_img= PhotoImage(file="fnafpython2.0-main/assets/ehallcorner.png")
+ehallcorner_img= PhotoImage(file="assets/ehallcorner.png")
 canvas8.create_image(640,288,image=ehallcorner_img)
 
-chicacorner_img= PhotoImage(file="fnafpython2.0-main/assets/chicacorner.png")
+chicacorner_img= PhotoImage(file="assets/chicacorner.png")
 
 
-fredcorner_img = PhotoImage(file="fnafpython2.0-main/assets/fredcorner.png")
+fredcorner_img = PhotoImage(file="assets/fredcorner.png")
 
 c1abtn8 = Button(canvas8, bg = 'black', image=c1a2, command=lambda: cam1a())
 c1abtn8.place(x= 990, y= 275)
@@ -775,10 +815,10 @@ canvas9 = Canvas(cams5, bg="black", width=1280, height=577)
 canvas9.pack()
 
 
-backstage = PhotoImage(file="fnafpython2.0-main/assets/partservice.png")
+backstage = PhotoImage(file="assets/partservice.png")
 canvas9.create_image(640,288,image=backstage)
 
-bonparts = PhotoImage(file="fnafpython2.0-main/assets/bonparts.png")
+bonparts = PhotoImage(file="assets/bonparts.png")
 
 
 c1abtn9 = Button(canvas9, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -822,13 +862,13 @@ canvas10 = Canvas(cams7, bg="black", width=1280, height=577)
 canvas10.pack()
 
 
-bath = PhotoImage(file="fnafpython2.0-main/assets/bath.png")
+bath = PhotoImage(file="assets/bath.png")
 canvas10.create_image(640,288,image=bath)
 
-chicabath = PhotoImage(file="fnafpython2.0-main/assets/chicabath.png")
+chicabath = PhotoImage(file="assets/chicabath.png")
 
 
-fredbath = PhotoImage(file="fnafpython2.0-main/assets/fredbath.png")
+fredbath = PhotoImage(file="assets/fredbath.png")
 
 
 c1abtn10 = Button(canvas10, bg = 'black', image=c1a2, command=lambda: cam1a())
@@ -1095,6 +1135,12 @@ def gamestart():
             office_canvas.create_image(640,288, image=foxy_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            dead = True
         elif bonloc == 6 and foxyloc == 2 and chicaloc == 6 and markloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1102,86 +1148,246 @@ def gamestart():
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                foxyloc = 0
+                bonloc = 0
+                chicaloc = 0
+                markloc = 0
+            else:
+                dead = True
+
         elif bonloc == 6 and foxyloc == 2 and chicaloc == 6:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                foxyloc = 0
+                bonloc = 0
+                chicaloc = 0
+            else:
+                dead = True
+            
         elif bonloc == 6 and foxyloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle == True:
+                foxyloc = 0
+                bonloc = 0
+            else:
+                dead = True
         
+        elif chicaloc == 6 and foxyloc == 2 and markloc == 2 and goldloc == 1:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)    
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            dead = True
         elif foxyloc == 2 and chicaloc == 6:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                foxyloc = 0
+                chicaloc = 0
+            else:
+                dead = True
         
-        elif chicaloc == 6 and markloc == 2 and goldloc:
+        elif chicaloc == 6 and markloc == 2 and goldloc == 1:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            dead = True
         elif chicaloc == 6 and markloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorright_toggle == True:
+                chicaloc = 0
+                markloc = 0
+            else:
+                dead = True
         
-        elif markloc == 2 and goldloc:
+        elif markloc == 2 and goldloc == 1:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            dead = True
         
         elif bonloc == 6 and markloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                bonloc = 0
+                markloc = 0
+            else:
+                dead = True
         elif chicaloc == 6 and bonloc == 6:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                bonloc = 0
+                chicaloc = 0
+            else:
+                dead = True
         elif chicaloc == 6 and foxyloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if doorleft_toggle and doorright_toggle == True:
+                foxyloc = 0
+                bonloc = 0
+                chicaloc = 0
+            else:
+                dead = True
         elif chicaloc == 6:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=chica_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if  doorright_toggle == True:
+                chicaloc = 0
+            else:
+                dead = True
         elif markloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=mark_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if  doorright_toggle == True:
+                markloc = 0
+            else:
+                dead = True
         elif goldloc == 1: 
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=goldenfred_officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            dead = True
+
         elif foxyloc == 2:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=foxy_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if  doorleft_toggle == True:
+                foxyloc = 0
+            else:
+                dead = True
         elif bonloc == 6:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
             office_canvas.create_image(640,288, image=bonnie_doorimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if  doorleft_toggle == True:
+                bonloc = 0
+            else:
+                dead = True
         else:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+
+
+
+        
+
+
+        
+        
 
 
         #MOVEMENT ----------------------------------------------------------------------------------------------------------------
@@ -1244,10 +1450,14 @@ def gamestart():
 
     if finish == True:
         office_canvas.create_image(640,288, image=complete)
-        time.sleep(5)
+        pygame.mixer.music.stop()
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound("audio/win.mp3"))
+        time.sleep(12)
         root.destroy()
     else:
         office_canvas.create_image(640,288, image=gameover)
+        pygame.mixer.music.stop()
+        pygame.mixer.Channel(0).play(pygame.mixer.Sound("audio/jumpscare.mp3"))
         time.sleep(5)
         root.destroy()
 
