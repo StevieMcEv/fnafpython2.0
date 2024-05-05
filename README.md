@@ -4,3 +4,7 @@ Some mechanics may not be faithful to the original and some features ma be left 
 Created for an asignment.
 
 Code written by Steven Sirchia and Yoan Pezzi.
+
+DEPENDENCIES:
+
+-This project requires your PC to have PyGame installed! Please install PyGame in order to play.
