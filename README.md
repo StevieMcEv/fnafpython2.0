@@ -10,12 +10,12 @@ DEPENDENCIES:
 -This project requires your PC to have PyGame installed! Please install PyGame in order to play.
 
 
-FAQ
-Q: Why don't the doors close instantly?
-A: Python limitations. Just pretend the doors are rusty.
+FAQ <br/>
+Q: Why don't the doors close instantly?<br/>
+A: Python limitations. Just pretend the doors are rusty.<br/>
 
-Q: Why do lights turn on automatically?
-A: Fazbear Entertainment installed brand-new lights that turn on using proximity sensors! (We were just lazy)
+Q: Why do lights turn on automatically?<br/>
+A: Fazbear Entertainment installed brand-new lights that turn on using proximity sensors! (We were just lazy)<br/>
 
-Q:Why does Foxy phase through the door?
-A: Foxy cannot be contained. (We were just lazy...again.)
+Q:Why does Foxy phase through the door?<br/>
+A: Foxy cannot be contained. (We were just lazy...again.)<br/>
