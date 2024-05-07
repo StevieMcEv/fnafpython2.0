@@ -8,3 +8,14 @@ Code written by Steven Sirchia and Yoan Pezzi.
 DEPENDENCIES:
 
 -This project requires your PC to have PyGame installed! Please install PyGame in order to play.
+
+
+FAQ
+Q: Why don't the doors close instantly?
+A: Python limitations. Just pretend the doors are rusty.
+
+Q: Why do lights turn on automatically?
+A: Fazbear Entertainment installed brand-new lights that turn on using proximity sensors! (We were just lazy)
+
+Q:Why does Foxy phase through the door?
+A: Foxy cannot be contained. (We were just lazy...again.)
