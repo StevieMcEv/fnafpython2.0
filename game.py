@@ -1,9 +1,9 @@
 from tkinter import *
 
 import time
-import threading
+import threading         #Imports any addon we need
 import random
-import pygame
+import pygame #Used for audio
 
 page = 1.0
 doorleft_toggle = False
@@ -20,9 +20,9 @@ root.geometry("1280x577")
 root.title("FNAF PYTHON 2.0")
 
 pygame.init()
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.set_volume(0.3)  
 
-def changePage():
+def changePage():      #Tells which pages to appear when
     global page
     if page == 1.0:
         office.pack_forget()
@@ -163,7 +163,7 @@ def changePage():
         cams5.pack_forget()
         office.pack_forget()
 night = 0
-def select_1():
+def select_1():         #Sets night which affects diffculty
     global page, night
     page = 2.0
     night = 1
@@ -314,8 +314,11 @@ cams7 = Frame(root, bg='grey')
 
 
 
-
-
+battery = PhotoImage(file='assets/battery.png')
+p25 = PhotoImage(file='assets/25p.png')
+p50 = PhotoImage(file='assets/halfp.png')
+p75 = PhotoImage(file='assets/75p.png')
+maxp = PhotoImage(file='assets/maxp.png')
 
 clock12 = PhotoImage(file='assets/12AM.png')
 clock1 = PhotoImage(file='assets/1AM.png')
@@ -911,7 +914,7 @@ foxlvl = 0
 marklvl = 0
 
 def nightselect():
-    global bonlvl, chiclvl, fredlvl, foxlvl, marklvl
+    global bonlvl, chiclvl, fredlvl, foxlvl, marklvl      #Sets difficulty based on selected night
     if night == 1:
         bonlvl = 4
         chiclvl = 2
@@ -952,8 +955,8 @@ def nightselect():
     
     
 
-freddyroom = ["stage","dining","bathroom","east hall","east hall corner","office",] #These are lists of the possible locations, and a number to keep track of where they are from the indexes.
-fredloc = 0
+freddyroom = ["stage","dining","bathroom","east hall","east hall corner","office",] #These are lists of the possible locations
+fredloc = 0 #Their current location, associating with list order
 bonnieroom = ["stage", "dining","parts and services","west hall","closet","east hall corner","office"]
 bonloc = 0
 chicaroom= ["stage", "dining", "bathroom","east hall","east hall corner", "office"]
@@ -962,18 +965,21 @@ foxyroom = ["cove", "office"]
 foxyloc = 0
 markloc = 0
 goldloc = 0
+
 dead = False
 finish = False
+power = 100
 
 def gamestart():
-    global dead,root,finish,officeimg, page, chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl
+    global dead,root,finish,officeimg,power, page,chica_doorimg,bonnie_doorimg,mark_doorimg,goldenfred_officeimg,foxy_doorimg,goldloc,fredbath, fredcorner_img,freddin,fredloc, fredlvl, fredstage, boncloset_img,boncorner_img,bondin,bonloc,bonlvl, bonparts, bonstage,bonhall_img ,chicabath,chicacorner_img,chicadin,chicaehall_img,chicaloc ,chiclvl,foxlvl,foxyattack, foxyhome,foxyloc,stage,dinning,backstage,bath,whall_img,whallcorner_img,ehall_img,ehallcorner_img,closet_img,cove, markcorner_img, markloc, marklvl,p25,p50,p75,maxp,battery
     clock = 0.0
+    
     while dead == False and finish == False:
-
+        
         # LOCATION CODE ---------------------------------------------------------
 
         #STAGE --- 1a
-        if fredloc == 0 and bonloc == 0:
+        if fredloc == 0 and bonloc == 0:                   #Checks whether or not these animatronics are on this camera currently, loads and unloads necessary images
             canvas.create_image(640,288,image=fredstage)
             canvas.create_image(640,288,image=bonstage)
         elif fredloc == 0:
@@ -1189,7 +1195,7 @@ def gamestart():
             if doorright_toggle == True:
                 office_canvas.create_image(640,288, image=door_rightimg)
             time.sleep(4)
-            if doorleft_toggle == True:
+            if doorleft_toggle == True: #If door is closed, animatronics are sent back to starting location
                 foxyloc = 0
                 bonloc = 0
             else:
@@ -1373,6 +1379,19 @@ def gamestart():
                 bonloc = 0
             else:
                 dead = True
+        elif fredloc == 6:
+            office_canvas.delete('all')
+            office_canvas.create_image(640,288, image=officeimg)
+            
+            if doorleft_toggle == True:
+             office_canvas.create_image(640,288, image=door_leftimg)
+            if doorright_toggle == True:
+                office_canvas.create_image(640,288, image=door_rightimg)
+            time.sleep(4)
+            if  doorright_toggle == True:
+                fredloc = 0
+            else:
+                dead = True
         else:
             office_canvas.delete('all')
             office_canvas.create_image(640,288, image=officeimg)
@@ -1413,8 +1432,13 @@ def gamestart():
             movement = random.randint(1,(2 * (marklvl)))
             if movement > random.randint(2,8):
                 markloc = markloc + 1
-    
-        if clock < 60.0:
+
+        goldfred = random.randint(0,200)
+        if goldfred == 0:
+            goldloc = 1
+
+
+        if clock < 60.0:  #Displays the correct time
             
             office_canvas.create_image(640,288, image=clock12)
 
@@ -1443,8 +1467,41 @@ def gamestart():
             office_canvas.create_image(640,288, image=clock6)
             time.sleep(1)
             finish = True
+
+
+
+
+        office_canvas.create_image(640,288, image=battery)              #Displays the amount of power left
+        
+        power = power - 1
+
+        if doorleft_toggle == True:
+            power = power - 1
+        if doorright_toggle == True:
+            power = power - 1
+
+        if power > 75:
+            office_canvas.create_image(640,288, image=p25)
+            office_canvas.create_image(640,288, image=p50)
+            office_canvas.create_image(640,288, image=p75)
+            office_canvas.create_image(640,288, image=maxp)
+        elif power > 50:
+            office_canvas.create_image(640,288, image=p25)
+            office_canvas.create_image(640,288, image=p50)
+            office_canvas.create_image(640,288, image=p75)
+        elif power > 25:
+            office_canvas.create_image(640,288, image=p25)
+            office_canvas.create_image(640,288, image=p50)
+        elif power > 0:
+            office_canvas.create_image(640,288, image=p25)
+        else:
+            dead = True
+
+       
+        
         time.sleep(5)
         clock = clock + 5.0
+    
     page = 2.0
     changePage()
 
