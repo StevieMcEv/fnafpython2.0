@@ -19,3 +19,5 @@ A: Fazbear Entertainment installed brand-new lights that turn on using proximity
 
 Q:Why does Foxy phase through the door?<br/>
 A: Foxy cannot be contained. (We were just lazy...again.)<br/>
+
+NOTE: Assets aren't ours, if this gets taken down that's probably why it was taken down
